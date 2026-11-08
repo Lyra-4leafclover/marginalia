@@ -12,6 +12,10 @@
 </p>
 
 <p align="center">
+  <a href="https://lyra-4leafclover.github.io/marginalia/"><strong>✨ Open Marginalia ✨</strong></a>
+</p>
+
+<p align="center">
   <a href="#-paper-explainer">Paper Explainer</a> &nbsp;·&nbsp;
   <a href="#-research-compass">Research Compass</a> &nbsp;·&nbsp;
   <a href="#-turn-on-the-ai-free">Free AI key</a> &nbsp;·&nbsp;
