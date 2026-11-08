@@ -495,7 +495,8 @@ async function viewCompass(q) {
 
 const running = new Map();
 async function viewProject(id) {
-  const p = await get('projects', id);
+  // a search still running from an earlier visit keeps filling its own object, so reuse it
+  const p = running.get(id)?.proj || await get('projects', id);
   if (!p) { view.innerHTML = `<section class="page narrow"><h1 class="page-title">Not found</h1><a class="btn" href="#/compass">New topic</a></section>`; return; }
   p.saved ||= [];
   const render = () => {
@@ -546,12 +547,14 @@ async function viewProject(id) {
   const go = async () => {
     render();
     const stat = t => { const el = $('#pstatus'); if (el && t !== 'plan' && t !== 'done') el.innerHTML = `<p class="progress-pill"><span class="quill"></span>${esc(t)}</p>`; };
-    let r = running.get(p.id);
-    if (!r) { r = runCompass(p, msg => { if (msg === 'plan' && location.hash.endsWith(p.id)) render(); stat(msg); }); running.set(p.id, r); }
-    try { await r; } catch (e) { p.error = e.message; } finally { running.delete(p.id); }
+    let job = running.get(p.id);
+    if (!job) { job = { proj: p, listeners: new Set() }; job.r = runCompass(p, msg => job.listeners.forEach(l => l(msg))); running.set(p.id, job); }
+    const listener = msg => { if (msg === 'plan' && location.hash.endsWith(p.id)) render(); stat(msg); };
+    job.listeners.add(listener);
+    try { await job.r; } catch (e) { p.error = e.message; } finally { job.listeners.delete(listener); if (running.get(p.id) === job) running.delete(p.id); }
     if (location.hash.endsWith(p.id)) render();
   };
-  if (p.results) render(); else go();
+  if (p.results && !running.has(p.id)) render(); else go();
 }
 
 // ---------- library ----------
