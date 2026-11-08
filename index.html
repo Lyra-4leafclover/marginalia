@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-theme="parchment">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Marginalia · every paragraph, explained</title>
+  <meta name="description" content="Upload any research paper or article and get every paragraph explained in the margins, plus the best resources to learn more. Or enter your own paper title to find existing papers, ongoing studies, books, videos and websites.">
+  <meta name="theme-color" content="#f6efe2">
+  <meta property="og:title" content="Marginalia · every paragraph, explained">
+  <meta property="og:description" content="Paragraph-by-paragraph explanations of research papers, and a research compass for your own topic.">
+  <meta property="og:image" content="art/hero-day.webp">
+  <link rel="icon" href="art/favicon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    try {
+      var t = (JSON.parse(localStorage.getItem('marginalia.settings.v1') || '{}').theme) || 'auto';
+      var dark = t === 'midnight' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+      document.documentElement.dataset.theme = dark ? 'midnight' : 'parchment';
+    } catch (e) {}
+  </script>
+</head>
+<body>
+  <a class="skip" href="#view">Skip to content</a>
+  <header class="topbar">
+    <a class="brand" href="#/" aria-label="Marginalia home">
+      <img src="art/favicon.png" alt="" width="34" height="34">
+      <span>Marginalia</span>
+    </a>
+    <nav class="nav" id="nav">
+      <a href="#/explain" data-nav="explain">Explain</a>
+      <a href="#/compass" data-nav="compass">Compass</a>
+      <a href="#/library" data-nav="library">Library</a>
+      <a href="#/settings" data-nav="settings" class="nav-settings">Settings <i class="dot" id="keyDot" title=""></i></a>
+    </nav>
+    <button class="theme-btn" id="themeBtn" aria-label="Switch light or dark theme" title="Switch theme">
+      <svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+      <svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>
+    </button>
+  </header>
+
+  <main id="view" tabindex="-1"></main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-brand">Marginalia</p>
+        <p class="muted">Made with love by Lyra. Explanations by Google Gemini; paper data from OpenAlex, ClinicalTrials.gov, Open Library and Wikipedia.</p>
+      </div>
+      <nav class="footer-links" id="contact"></nav>
+    </div>
+    <p class="footer-note muted">AI explanations can be wrong. Always check important details against the original paper.</p>
+  </footer>
+
+  <div id="toasts" aria-live="polite"></div>
+  <noscript><p class="notice">Marginalia needs JavaScript turned on.</p></noscript>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
